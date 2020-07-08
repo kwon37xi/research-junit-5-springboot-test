@@ -1,0 +1,12 @@
+.idea/
+*.iml
+out/
+.project
+target/
+build/
+.classpath
+.settings/
+.gradle/
+.envrc
+.jabbarc
+.run/

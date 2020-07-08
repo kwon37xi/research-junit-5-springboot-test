@@ -1,0 +1,46 @@
+plugins {
+	id 'org.springframework.boot' version '2.3.1.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id 'java-library'
+}
+
+group = 'kr.pe.kwonnam.research-junit5-springboot-test'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+targetCompatibility = '11'
+
+configurations {
+    all*.exclude group: 'commons-logging', module: 'commons-logging' // replaced with jcl-over-slf4j
+    all*.exclude group: 'log4j', module: 'log4j' // replaced with log4j-over-slf4j
+    all*.exclude group: 'org.apache.logging.log4j' // replaced with log4j-over-slf4j
+    all*.exclude module: 'slf4j-log4j12'
+
+    compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+    implementation 'org.slf4j:jcl-over-slf4j'
+    implementation 'org.slf4j:log4j-over-slf4j'
+
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'com.h2database:h2'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+    testImplementation 'com.github.database-rider:rider-core:1.15.1'
+
+}
+
+test {
+	useJUnitPlatform()
+}
